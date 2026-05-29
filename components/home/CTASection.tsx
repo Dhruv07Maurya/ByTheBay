@@ -23,7 +23,7 @@ export function CTASection() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-playfair font-bold mb-8 leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-bold mb-8 leading-tight">
             Ready to Create Something <SquigglyText
               stepDuration={100}
               scale={[6, 9]}
@@ -35,9 +35,9 @@ export function CTASection() {
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 30 } : { opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl font-outfit text-gray-light mb-12 max-w-2xl mx-auto leading-relaxed"
+          className="text-lg sm:text-xl font-outfit text-gray-light mb-12 max-w-2xl mx-auto leading-relaxed"
         >
           Let&apos;s discuss your vision and explore how we can bring your creative goals to life.
         </motion.p>

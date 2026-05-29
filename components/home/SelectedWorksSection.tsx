@@ -327,6 +327,23 @@ export function SelectedWorksSection() {
           }
         }
 
+        /* ══════════════════════════════
+           XS MOBILE < 480px
+           Stack all cards vertically
+        ══════════════════════════════ */
+        @media (max-width: 479px) {
+          .btb-grid {
+            grid-template-columns: 1fr !important;
+            grid-template-rows: auto !important;
+            gap: 1rem !important;
+          }
+          .btb-c1, .btb-c2, .btb-c3 {
+            grid-column: 1 / -1 !important;
+            grid-row: auto !important;
+            height: 220px !important;
+          }
+        }
+
         /* ── Footer ── */
         .btb-footer {
           margin-top: 1rem;

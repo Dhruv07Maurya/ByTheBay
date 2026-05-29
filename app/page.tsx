@@ -10,11 +10,14 @@ import { AboutPhilosophySection } from '@/components/home/AboutPhilosophySection
 import { ProcessSection } from '@/components/home/ProcessSection'
 import { CTASection } from '@/components/home/CTASection'
 
+import { OnekoCat } from '@/components/home/OnekoCat'
+
 export default function Page() {
   return (
     <>
       <LenisScroll />
       <main className="min-h-screen">
+        <OnekoCat />
         <HeroSection />
         <SelectedWorksSection />
         <ClientsMarquee />

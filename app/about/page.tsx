@@ -265,8 +265,8 @@ export default function AboutPage() {
         </section>
 
         {/* ══ STORY (dark) ══════════════════════════════ */}
-        <section style={{ backgroundColor: '#2b160a', padding: '6rem 2.5rem' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: '4rem', alignItems: 'center' }}>
+        <section className="btb-about-section-padding" style={{ backgroundColor: '#2b160a', padding: '6rem 2.5rem' }}>
+          <div className="btb-about-story-grid" style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: '4rem', alignItems: 'center' }}>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -307,7 +307,7 @@ export default function AboutPage() {
         </section>
 
         {/* ══ VALUES ════════════════════════════════════ */}
-        <section style={{ backgroundColor: '#f0ede6', padding: '6rem 2.5rem' }}>
+        <section className="btb-about-section-padding" style={{ backgroundColor: '#f0ede6', padding: '6rem 2.5rem' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -322,7 +322,7 @@ export default function AboutPage() {
               <span style={{ fontFamily: 'var(--font-outfit)', fontSize: '0.7rem', color: '#a89880', letterSpacing: '0.12em' }}>02 / VALUES</span>
             </motion.div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 0, border: '1px solid #d0ccbf' }}>
+            <div className="btb-about-values-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 0, border: '1px solid #d0ccbf' }}>
               {[
                 { num: '01', title: 'Authenticity', desc: 'We create work that feels genuine and true to your brand\'s core identity — never formulaic.' },
                 { num: '02', title: 'Innovation', desc: 'We push creative boundaries constantly, exploring fresh approaches to every hard problem.' },
@@ -335,6 +335,7 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
                   viewport={{ once: true }}
+                  className="btb-value-item"
                   style={{
                     padding: '2.5rem',
                     borderRight: i % 2 === 0 ? '1px solid #d0ccbf' : 'none',
@@ -351,8 +352,8 @@ export default function AboutPage() {
         </section>
 
         {/* ══ STATS ═════════════════════════════════════ */}
-        <section style={{ backgroundColor: '#1a1208', padding: '5rem 2.5rem' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: '1px', backgroundColor: 'rgba(255,255,255,0.07)' }}>
+        <section className="btb-about-stats-section" style={{ backgroundColor: '#1a1208', padding: '5rem 2.5rem' }}>
+          <div className="btb-about-stats-grid" style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: '1px', backgroundColor: 'rgba(255,255,255,0.07)' }}>
             {[
               { num: '80+', label: 'Projects' },
               { num: '5yr', label: 'In the game' },
@@ -365,6 +366,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 viewport={{ once: true }}
+                className="btb-stat-item"
                 style={{ backgroundColor: '#1a1208', padding: '3.5rem 2rem', textAlign: 'center' }}
               >
                 <span style={{ fontFamily: 'var(--font-outfit)', fontWeight: 900, fontSize: 'clamp(2.5rem,6vw,4rem)', color: '#e8e5de', display: 'block', lineHeight: 1 }}>{s.num}</span>
@@ -375,7 +377,7 @@ export default function AboutPage() {
         </section>
 
         {/* ══ CTA ═══════════════════════════════════════ */}
-        <section style={{ backgroundColor: '#f0ede6', padding: '7rem 2.5rem 10rem', textAlign: 'center' }}>
+        <section className="btb-about-cta-section" style={{ backgroundColor: '#f0ede6', padding: '7rem 2.5rem 10rem', textAlign: 'center' }}>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -416,6 +418,122 @@ export default function AboutPage() {
         </section>
       </main>
       <Footer />
+
+      <style>{`
+        .btb-about-section-padding {
+          padding: 3.5rem 1.5rem !important;
+        }
+        @media (min-width: 768px) {
+          .btb-about-section-padding {
+            padding: 6rem 2.5rem !important;
+          }
+        }
+        
+        .btb-about-story-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+          align-items: center;
+        }
+        @media (min-width: 768px) {
+          .btb-about-story-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+          }
+        }
+
+        .btb-about-values-grid {
+          display: grid;
+          grid-template-columns: 1fr !important;
+          gap: 0;
+          border: 1px solid #d0ccbf;
+        }
+        @media (min-width: 550px) {
+          .btb-about-values-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+        }
+        @media (min-width: 900px) {
+          .btb-about-values-grid {
+            grid-template-columns: 1fr 1fr 1fr 1fr !important;
+          }
+        }
+
+        .btb-value-item {
+          padding: 2rem 1.5rem !important;
+          border-right: none !important;
+          border-bottom: 1px solid #d0ccbf !important;
+        }
+        .btb-value-item:last-child {
+          border-bottom: none !important;
+        }
+        
+        @media (min-width: 550px) and (max-width: 899px) {
+          .btb-value-item {
+            padding: 2.5rem !important;
+          }
+          .btb-value-item:nth-child(odd) {
+            border-right: 1px solid #d0ccbf !important;
+          }
+          .btb-value-item:nth-child(1),
+          .btb-value-item:nth-child(2) {
+            border-bottom: 1px solid #d0ccbf !important;
+          }
+          .btb-value-item:nth-child(3),
+          .btb-value-item:nth-child(4) {
+            border-bottom: none !important;
+          }
+        }
+
+        @media (min-width: 900px) {
+          .btb-value-item {
+            padding: 2.5rem !important;
+            border-bottom: none !important;
+          }
+          .btb-value-item:not(:last-child) {
+            border-right: 1px solid #d0ccbf !important;
+          }
+        }
+
+        .btb-about-stats-section {
+          padding: 3.5rem 1.5rem !important;
+        }
+        @media (min-width: 768px) {
+          .btb-about-stats-section {
+            padding: 5rem 2.5rem !important;
+          }
+        }
+
+        .btb-about-stats-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr !important;
+          gap: 1px;
+          background-color: rgba(255,255,255,0.07);
+        }
+        @media (min-width: 768px) {
+          .btb-about-stats-grid {
+            grid-template-columns: 1fr 1fr 1fr 1fr !important;
+          }
+        }
+
+        .btb-stat-item {
+          padding: 2.5rem 1rem !important;
+        }
+        @media (min-width: 768px) {
+          .btb-stat-item {
+            padding: 3.5rem 2rem !important;
+          }
+        }
+
+        .btb-about-cta-section {
+          padding: 4.5rem 1.5rem 7.5rem !important;
+        }
+        @media (min-width: 768px) {
+          .btb-about-cta-section {
+            padding: 7rem 2.5rem 10rem !important;
+          }
+        }
+      `}</style>
     </>
   )
 }
