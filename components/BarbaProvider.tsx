@@ -24,19 +24,26 @@ export function CinematicTransition({ children }: { children: React.ReactNode })
   const router = useRouter()
   const curtainTopRef = useRef<HTMLDivElement>(null)
   const curtainBotRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const isTransitioningRef = useRef(false)
 
-  // On every route change → UNCOVER (page reveal)
+  // On every route change → Reveal new page
   useEffect(() => {
     const top = curtainTopRef.current
     const bot = curtainBotRef.current
+    const content = contentRef.current
     if (!top || !bot) return
 
-    gsap.killTweensOf([top, bot])
+    gsap.killTweensOf([top, bot, content])
 
-    // Reset to covered, then uncover
+    // Reset curtains to fully covered
     gsap.set(top, { scaleY: 1, transformOrigin: 'top center' })
     gsap.set(bot, { scaleY: 1, transformOrigin: 'bottom center' })
+
+    // Reset content to faded out and slightly scaled down
+    if (content) {
+      gsap.set(content, { opacity: 0, scale: 0.98, y: 10 })
+    }
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -45,8 +52,14 @@ export function CinematicTransition({ children }: { children: React.ReactNode })
       },
     })
 
-    tl.to(top, { scaleY: 0, duration: 0.65, ease: 'power3.inOut', delay: 0.05 }, 0)
-    tl.to(bot, { scaleY: 0, duration: 0.65, ease: 'power3.inOut', delay: 0.15 }, 0)
+    // Curtains split open smoothly (Expo curve)
+    tl.to(top, { scaleY: 0, duration: 0.75, ease: 'expo.out' }, 0)
+    tl.to(bot, { scaleY: 0, duration: 0.75, ease: 'expo.out' }, 0)
+
+    // Content fades & slides up gently
+    if (content) {
+      tl.to(content, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.08 }, 0)
+    }
   }, [pathname])
 
   // Intercept clicks on internal links
@@ -74,15 +87,16 @@ export function CinematicTransition({ children }: { children: React.ReactNode })
 
       const top = curtainTopRef.current
       const bot = curtainBotRef.current
+      const content = contentRef.current
       if (!top || !bot) {
         router.push(href)
         return
       }
 
-      gsap.killTweensOf([top, bot])
+      gsap.killTweensOf([top, bot, content])
       gsap.set([top, bot], { pointerEvents: 'all' })
 
-      // Reset to uncovered
+      // Reset curtains to fully open (uncovered)
       gsap.set(top, { scaleY: 0, transformOrigin: 'top center' })
       gsap.set(bot, { scaleY: 0, transformOrigin: 'bottom center' })
 
@@ -92,9 +106,14 @@ export function CinematicTransition({ children }: { children: React.ReactNode })
         },
       })
 
-      // Cover the screen — staggered for cinematic feel
-      tl.to(top, { scaleY: 1, duration: 0.55, ease: 'power3.inOut' }, 0)
-      tl.to(bot, { scaleY: 1, duration: 0.55, ease: 'power3.inOut', delay: 0.07 }, 0)
+      // Fade & scale out the current content
+      if (content) {
+        tl.to(content, { opacity: 0, scale: 0.98, y: -10, duration: 0.45, ease: 'power3.inOut' }, 0)
+      }
+
+      // Close the curtains (cover screen)
+      tl.to(top, { scaleY: 1, duration: 0.55, ease: 'expo.inOut', delay: 0.05 }, 0)
+      tl.to(bot, { scaleY: 1, duration: 0.55, ease: 'expo.inOut', delay: 0.05 }, 0)
     }
 
     document.addEventListener('click', handleClick, true)
@@ -136,7 +155,9 @@ export function CinematicTransition({ children }: { children: React.ReactNode })
         }}
         aria-hidden
       />
-      {children}
+      <div ref={contentRef} style={{ willChange: 'opacity, transform' }}>
+        {children}
+      </div>
     </>
   )
 }

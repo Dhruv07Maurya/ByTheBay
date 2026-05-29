@@ -44,9 +44,6 @@ export function ServicesSection() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
-    // Disable scroll animations on mobile / tablet to prevent lag and clipping
-    if (typeof window !== 'undefined' && window.innerWidth < 1024) return
-
     // Wait a tick so layout is settled
     const id = setTimeout(() => {
       const ctx = gsap.context(() => {
@@ -94,16 +91,16 @@ export function ServicesSection() {
           <div
             key={i}
             ref={(el) => { cardRefs.current[i] = el }}
-            className="relative lg:sticky lg:top-0 min-h-[auto] lg:min-h-screen flex flex-col justify-center"
+            className="sticky top-0 min-h-screen flex flex-col justify-center"
             style={{
               backgroundColor: svc.bg,
               zIndex: 10 + i,
             }}
           >
             {/* Inner card content */}
-            <div className="max-w-7xl mx-auto px-6 md:px-12 w-full py-12 sm:py-16 lg:py-24">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 w-full py-16 md:py-24">
               {/* Top meta row */}
-              <div className="flex items-center justify-between mb-8 md:mb-16">
+              <div className="flex items-center justify-between mb-10 md:mb-16">
                 <span
                   className="font-outfit text-xs tracking-[0.2em] uppercase opacity-50"
                   style={{ color: svc.text }}
@@ -111,7 +108,7 @@ export function ServicesSection() {
                   {svc.num} / 03
                 </span>
                 <span
-                  className="font-outfit font-black text-[4rem] sm:text-[5rem] md:text-[8rem] leading-none opacity-[0.07] select-none"
+                  className="font-outfit font-black text-[5rem] md:text-[8rem] leading-none opacity-[0.07] select-none"
                   style={{ color: svc.text }}
                 >
                   {svc.num}
@@ -119,17 +116,17 @@ export function ServicesSection() {
               </div>
 
               {/* Two-column layout */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
                 {/* Left */}
                 <div>
                   <h3
-                    className="font-outfit font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.92] tracking-tight mb-6 sm:mb-8 whitespace-pre-line"
+                    className="font-outfit font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.92] tracking-tight mb-8 whitespace-pre-line"
                     style={{ color: svc.text }}
                   >
                     {svc.title}
                   </h3>
                   <p
-                    className="font-outfit text-sm sm:text-base md:text-lg leading-relaxed max-w-[40ch]"
+                    className="font-outfit text-base md:text-lg leading-relaxed max-w-[40ch]"
                     style={{ color: svc.text, opacity: 0.72 }}
                   >
                     {svc.desc}
@@ -141,11 +138,11 @@ export function ServicesSection() {
                   {svc.tags.map((tag, ti) => (
                     <div
                       key={ti}
-                      className="flex items-center justify-between py-3 sm:py-4 border-b"
+                      className="flex items-center justify-between py-4 border-b"
                       style={{ borderColor: svc.border }}
                     >
                       <span
-                        className="font-outfit text-xs sm:text-sm md:text-base font-medium"
+                        className="font-outfit text-sm md:text-base font-medium"
                         style={{ color: svc.sub }}
                       >
                         {tag}
@@ -167,4 +164,3 @@ export function ServicesSection() {
     </section>
   )
 }
-
